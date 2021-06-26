@@ -1,0 +1,246 @@
+/* .navbar-nav {
+    display: inline-flex !important;
+    flex-direction: row!important;
+
+}
+.inline-nav-item {
+    padding: 4px 20px;
+} */
+html, body {
+
+}
+
+
+.add-contacts {
+    text-align: left;
+}
+
+.module-list-item {
+    border-radius: .25rem;
+    margin: 10px 0px 10px 0px;
+    padding: 1rem 2.5rem;
+    /* box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); */
+
+}
+
+.form-card {
+    /* box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); */
+    border-radius: 1rem;
+}
+
+.clickable {
+    cursor: pointer;
+}
+#profileMenuBtn .ion-md-contact {
+    font-size: 30px;
+}
+
+#profileMenuBtn{
+    outline:none;
+    border:none;
+}
+.inline-icon-menu-5 {
+    flex: 0 0 20%;
+    max-width: 20%;
+}
+.icon-menu-link > *  {
+    display: block;
+}
+.icon-menu-link {
+    text-decoration: none!important;
+    text-decoration-style: unset!important;
+}
+
+.list-inline-item:hover {
+    background: rgba(0,0,0,.2) ;
+}
+
+@media (max-width: 320px){
+    .hidden-xs {
+        display: none;
+    }
+}
+.hidden-all {
+    display: none;
+}
+
+.fixed-bottom {
+    box-shadow: 2px -2px 4px rgba(0,0,0,0.2);
+    background: white!important;
+}
+
+/* .message {
+    margin-top: 15px;
+    border: 4px solid grey;
+    background: #0275D8;
+    border-radius: 24px;
+    color: white;
+    font-size: 16px;
+    padding: 7px;
+}
+*/
+
+video {
+    width: 100%;
+}
+
+.message-body {
+    margin: 0px;
+    padding: 5px;
+}
+#messageInput {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+}
+
+#messageInput input {
+    height: 60px;
+}
+#messageInput .input-group-btn button {
+    height: 60px;
+    width: 60px;
+}
+
+/* Speech bubble CSS From http://www.cssarrowplease.com/ */
+.message {
+    margin-top: 20px;
+    color: white;
+    border-radius: 24px;
+
+	position: relative;
+	background: #0275D8;
+}
+.message.right:after {
+	left: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(2, 117, 216, 0);
+	border-left-color: #0275D8;
+	border-width: 7px;
+	margin-top: -7px;
+}
+.message.left:after {
+	right: 100%;
+	top: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+    width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(2, 117, 216, 0);
+	border-right-color: #6c757d;
+	border-width: 7px;
+	margin-top: -7px;
+}
+
+.message.left
+    {
+        background: #6c757d;
+    }
+/* -------- END OF Reference CSS From http://www.cssarrowplease.com/ -----------*/
+
+
+.list-group-item.alert a {
+    color: black;
+}
+
+.add-contacts {
+    border-top: 1px  solid #efefef;
+
+}
+
+.contacts-filter{
+    margin-bottom: 0px!important;
+}
+
+.contacts-filter input {
+    height: 50px;
+}
+.contacts-filter .input-group-btn button {
+    height: 50px;
+    width: 50px;
+}
+
+.rm-st {
+    background: none;
+    border: none;
+}
+
+.ion-md-add-circle {
+    color: #0275D8;
+    font-size: 34px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.contact-list .ion-md-contact, .contact-list .ion-md-contacts {
+    color: #0275D8;
+    font-size: 34px;
+    margin-left: 10px;
+    vertical-align: middle;
+}
+
+.calendarTimeIndicator {
+    z-index: 12;
+    position: relative;
+}
+
+.event {
+    position: absolute;
+    top: 0px;
+    height: 100%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 0;
+}
+
+.event p {
+    color: white;
+    margin-top: 12px;
+}
+
+.schedule-calendar {
+    position: relative;
+}
+.schedule-calendar:before {
+    content: ' ';
+    top: 100px;
+    border: 10px solid red;
+    position: absolute;
+    width: 10px;
+    border-radius: 10px;
+    z-index: 2;
+}
+.schedule-calendar:after {
+    content: ' ';
+    top: 105px;
+    border: 4px solid red;
+    position: absolute;
+    left: 1%;
+    width: 99%;
+}
+
+.moduleCode {
+
+}
+
+#map {
+    bottom:0px;
+    height: 400px;
+    position: relative;
+    right: 0px;
+  }
+
+#map-parent {
+    height: 100%;
+    display: block;
+  }

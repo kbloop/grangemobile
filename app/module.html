@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<!--
+License Info
+-->
+<html>
+    <head>
+        <title>Grange Mobile</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style/main.css">
+    </head>
+    <body>
+<!-- ========== TOP NAVIGATION ============ -->
+<nav class="navbar navbar-expand-lg navbar-light ">
+        <!-- Brand -->
+        <a href="home.php" class="navbar-brand">
+            <i class="icon ion-md-calendar"></i>
+            GrangeMobile
+        </a>
+        <!-- Toggler -->
+        <button id="profileMenuBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNav"
+            aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="text-dark icon ion-md-contact"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="topNav">
+            <ul class="p-3 navbar-nav ml-auto offset-8 col-4 bg-light">
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.php">
+                        <i class="icon ion-md-contact"></i>
+                        Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">
+                        <i class="icon ion-md-power"></i>
+                        Logout</a>
+                </li>
+            </ul>
+
+            </ul>
+        </div>
+        </nav>
+
+        <!-- =========== END OF TOP NAVBAR ============= -->
+
+        <!-- =========== BOTTOM NAVBAR ============= -->
+
+<nav class="p-0 navbar fixed-bottom navbar-inverse bg-light">
+
+        <div class=" p-0 col-12" id="navbarNav">
+            <ul class="p-0 row m-0 list-inline">
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="home.php">
+                        <i class="icon ion-md-home"></i>
+                        <small class="hidden-xs">Home</small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="news.html">
+                        <i class="icon ion-md-paper"></i>
+                        <small class="hidden-xs">News</small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="inbox.php">
+                        <i class="icon ion-md-mail"></i>
+                        <small class="hidden-xs">Messages</small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-primary icon-menu-link" href="modules.html">
+                        <i class="icon ion-md-briefcase"></i>
+                         <small class="hidden-xs"> Modules </small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="contacts.html">
+                        <i class="icon ion-md-contacts"></i>
+                        <small class="hidden-xs"> Contacts </small>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        </nav>
+
+        <!-- =========== END OF BOTTOM NAVBAR ============= -->
+
+        <div class="container pb-5 mb-5">
+            <div class="row">
+                <div id="moduleInfo" class="col-12 mt-5">
+
+
+                    <h4 id="assignmentsHeader">Assignments</h4>
+                    <div id="assignmentsList" class="list-group">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap, jQuery and popper.js -->
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- Iconic icons -->
+        <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+        <!-- My Script -->
+        <script src="scripts/script.js"></script>
+
+        <script>
+
+            // Get the lecturers information and store for use later in localstorage.
+            $.getJSON('../php/json-data-lecturers.php', function(lecturersData){
+
+            if(lecturersData.staus === 0){
+
+            }
+            else {
+                var lecturers = [];
+                $.each(lecturersData.lecturers, function(index, lecturer){
+                    // Store the lecturers info in localStorage
+                    lecturers.push(lecturer);
+                    myStorage.setItem(lecturer.staffNumber, JSON.stringify(lecturer));
+                });
+                myStorage.setItem('lecturers', JSON.stringify(lecturers));
+            };
+            });
+
+        var url = window.location.href;
+        var qmark = url.indexOf('?');
+
+        // Get the module code.
+        url = url.slice(qmark+1, url.length);
+
+        $(document).ready(function(){
+
+            $.getJSON('../php/json-data-module.php?'+url, function(data) {
+                if(data.success === 0) {
+                    moduleNotFound();
+                    }
+                    else {
+                        var module = data.modules[0];
+
+                        var prof = checkTeachesModule(module.moduleNo);
+
+
+
+                        // Check that a lecturer was found
+                        if(prof) {
+                            var mdlHTMLStr =
+                            `<a href="module.html?${module.moduleNo}" class="shadow-sm module-list-item list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">${module.moduleName}</h5>
+                                    <i class="text-primary icon ion-md-information-circle-outline"></i>
+                                </div>
+                            </a>`;
+                            var moduleHtmlStr = `<h2 class="main">
+                                                        ${module.moduleName}
+                                                    </h2>
+                                                    <h6 class="text-muted"> Module code
+                                                        <span class="moduleCode text-info">${module.moduleNo}</span>
+                                                    </h6>
+                                                    <h6 class="text-muted"> Credits
+                                                        <span class="moduleCode text-info">${module.credits}</span>
+                                                    </h6>
+                                                    <h6 class="text-muted"> Available at
+                                                        <span class="moduleCode text-info">${module.website}</span>
+                                                    </h6>
+                                                        <a href="profile.php?${prof.staffNumber}" class="text-info">
+                                                            <h3>
+                                                                <small>
+                                                                    ${prof.firstName + ' ' + prof.lastName}
+                                                                </small>
+                                                            </h3>
+                                                        </a>
+
+                                                        <h4>
+                                                            <small>
+                                                                Class Bio
+                                                            </small>
+                                                    </h4>
+                                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nam aperiam modi eaque architecto sint quia soluta? Magnam dignissimos ab, natus ducimus nulla vel beatae velit, tempora cupiditate sit voluptate est!</p>`;
+
+                                // Append HTML
+                                $('#moduleInfo').prepend(moduleHtmlStr);
+
+
+                                var assignmentDeadline =
+                                `<div class="alert alert-danger" role="alert">
+                                    Assignment 1 - Due 12:00am, ${module.dueDate}
+                                </div>`;
+
+                                $('#assignmentsList').append(assignmentDeadline);
+                        }
+                        else {
+                            moduleNotFound();
+                        }
+                    }
+
+        		});
+    		});
+
+
+        function moduleNotFound(){
+            // Error Handling for no module number in search bar.
+            var profile404HtmlStr = `
+            <div class="col-12">
+                <img src="assets/404-Person.png" alt="404: Not Found"/>
+                <h4>The page you were looking for can't be found :(</h4>
+            </div>
+            `;
+            $('#assignmentsHeader').hide();
+            $('#moduleInfo').prepend(profile404HtmlStr);
+        }
+
+        </script>
+    </body>
+</html>

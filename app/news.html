@@ -1,0 +1,163 @@
+<?php
+session_start();
+
+if(!isset($_SESSION['loggedin'])) {
+    header('Location: index.php');
+    exit();
+}
+
+$user = $_SESSION['studentID'];
+
+?>
+<!DOCTYPE html>
+<!--
+License Info
+-->
+<html>
+    <head>
+        <title>Grange Mobile</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="style/main.css">
+    </head>
+    <body>
+
+
+<!-- ========== TOP NAVIGATION ============ -->
+<nav class="navbar navbar-expand-lg navbar-light">
+        <!-- Brand -->
+        <a href="home.php" class="navbar-brand">
+            <i class="icon ion-md-calendar"></i>
+            GrangeMobile
+        </a>
+        <!-- Toggler -->
+        <button id="profileMenuBtn" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNav"
+            aria-controls="topNav" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="text-dark icon ion-md-contact"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="topNav">
+            <ul class="p-3 navbar-nav ml-auto offset-8 col-4 bg-light">
+                <li class="nav-item">
+                    <a class="nav-link" href="profile.php">
+                        <i class="icon ion-md-contact"></i>
+                        Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.php">
+                        <i class="icon ion-md-power"></i>
+                        Logout</a>
+                </li>
+            </ul>
+
+            </ul>
+        </div>
+        </nav>
+
+        <!-- =========== END OF TOP NAVBAR ============= -->
+
+        <!-- =========== BOTTOM NAVBAR ============= -->
+
+<nav class="p-0 navbar fixed-bottom navbar-inverse bg-light">
+
+        <div class=" p-0 col-12" id="navbarNav">
+            <ul class="p-0 row m-0 list-inline">
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="home.php">
+                        <i class="icon ion-md-home"></i>
+                        <small class="hidden-xs">Home</small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-primary icon-menu-link" href="news.html">
+                        <i class="icon ion-md-paper"></i>
+                        <small class="hidden-xs">News</small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="inbox.php">
+                        <i class="icon ion-md-mail"></i>
+                        <small class="hidden-xs">Messages</small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="modules.html">
+                        <i class="icon ion-md-briefcase"></i>
+                         <small class="hidden-xs"> Modules </small>
+                    </a>
+                </li>
+                <li class="p-2 list-inline-item text-center inline-icon-menu-5 m-0">
+                    <a class="text-dark icon-menu-link" href="contacts.html">
+                        <i class="icon ion-md-contacts"></i>
+                        <small class="hidden-xs"> Contacts </small>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+        </nav>
+
+        <!-- =========== END OF BOTTOM NAVBAR ============= -->
+
+
+
+        <div class="container pb-5 mb-5">
+            <div class="row">
+                <div class="col-12">
+                    <h4>Latest from TU Dublin</h4>
+                        <video height="240" controls>
+                                <source src="assets/vid.mp4" type="video/mp4">
+                              Your browser does not support the video tag.
+                        </video>
+                </div>
+                <main id="timeline" class="mt-4 col-12">
+                    <h5>Recent Tweets from TU Dublin</h5>
+
+
+                </main>
+            </div>
+        </div>
+
+        <!-- Bootstrap, jQuery and popper.js -->
+        <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- Iconic icons -->
+        <link href="https://unpkg.com/ionicons@4.5.5/dist/css/ionicons.min.css" rel="stylesheet">
+        <script src="scripts/script.js"></script>
+    </body>
+    <script>
+
+    var graphURL = "../php/php_twitter/timeline_response.php";
+
+    var twitterLink = `<div class="alert alert-info" role="alert">
+  <a href="https://twitter.com/WeAreTUDublin">Read more @TU Dublin</a>
+</div>`;
+    // Call when document has loaded
+    $(document).ready(function(){
+        // Make Ajax request
+        $.getJSON(graphURL, function(data){
+            // Iterate through tweets returned
+            $.each(data.tweets, function(i,tweet){
+                // Construct and add each tweet to DOM using jQuery
+                var htmlStr = `
+                <div class="card mt-3 mb-2">
+                            <div class="card-body">
+                              <blockquote class="blockquote mb-0">
+                                <p>${ tweet.text }</p>
+                                <footer class="blockquote-footer">Tweeted <cite title="Source Title">${makeTimeReadable(tweet.created_at)}</cite></footer>
+                              </blockquote>
+                            </div>
+                  </div>
+                `;
+
+                $("#timeline").append(htmlStr);
+
+
+
+              });
+              $("#timeline").append(twitterLink);
+        });
+    });
+    </script>
+</html>
